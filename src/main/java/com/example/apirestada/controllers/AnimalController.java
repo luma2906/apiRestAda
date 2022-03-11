@@ -8,27 +8,27 @@ import org.springframework.web.bind.annotation.*;
 import com.example.apirestada.service.AnimalService;
 
 @RestController
-@RequestMapping("/api/animales")
+@RequestMapping("/api/animals")
 public class AnimalController {
     @Autowired
     private AnimalService animalService;
 
-    @PostMapping("/obtenerAnimales")
+    @PostMapping("/")
     public ResponseEntity<Iterable<Animal>> getAll() {
         return  ResponseEntity.status(HttpStatus.OK).body(animalService.getAll());
     }
 
-    @PostMapping("/guardarAnimal")
+    @PostMapping("/create")
     public ResponseEntity<Animal> guardarAnimal(@RequestBody Animal animal) {
         return  ResponseEntity.status(HttpStatus.OK).body(animalService.save(animal));
     }
 
-    @PostMapping("/actualizarAnimales")
+    @PostMapping("/update")
     public ResponseEntity<Animal> actualizarAnimal(@RequestBody Animal animal) {
         return  ResponseEntity.status(HttpStatus.OK).body(animalService.update(animal));
     }
 
-    @PostMapping("/eliminarAnimales")
+    @PostMapping("/delete")
     public ResponseEntity<Boolean> eliminarAnimal(@RequestBody Animal animal) {
         return  ResponseEntity.status(HttpStatus.OK).body(animalService.deleteById(animal.getId()));
     }
