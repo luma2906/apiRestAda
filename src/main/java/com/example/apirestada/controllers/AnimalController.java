@@ -23,9 +23,9 @@ public class AnimalController {
         return  ResponseEntity.status(HttpStatus.OK).body(animalService.save(animal));
     }
 
-    @PutMapping("/")
-    public ResponseEntity<Animal> updateAnimal(@RequestBody Animal animal) {
-        return  ResponseEntity.status(HttpStatus.OK).body(animalService.update(animal));
+    @PutMapping("/{id}")
+    public ResponseEntity<Animal> updateAnimal(@PathVariable Long id,@RequestBody Animal animal) {
+        return  ResponseEntity.status(HttpStatus.OK).body(animalService.update(id,animal));
     }
 
     @DeleteMapping("/{id}")

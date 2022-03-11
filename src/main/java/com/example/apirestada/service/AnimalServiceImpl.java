@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.apirestada.repository.AnimalRepository;
 
+import java.util.Optional;
+
 @Service
 public class AnimalServiceImpl implements AnimalService{
     @Autowired
@@ -16,8 +18,19 @@ public class AnimalServiceImpl implements AnimalService{
     }
 
     @Override
-    public Animal update(Animal animal) {
-        return animalRepository.save(animal);
+    public Optional<Animal> getById(Long id) {
+        return animalRepository.findById(id);
+    }
+
+    @Override
+    public Animal update(Long id, Animal saveAnimal) {
+        return animalRepository.findById(id).map(animal -> {
+                animal.setName(saveAnimal.getName());
+                return animalRepository.save(animal);
+            }).orElseGet(() -> {
+                saveAnimal.setId(id);
+                return animalRepository.save(saveAnimal);
+            });
     }
 
     @Override
