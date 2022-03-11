@@ -13,23 +13,23 @@ public class AnimalController {
     @Autowired
     private AnimalService animalService;
 
-    @PostMapping("/")
+    @GetMapping("/")
     public ResponseEntity<Iterable<Animal>> getAll() {
         return  ResponseEntity.status(HttpStatus.OK).body(animalService.getAll());
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Animal> guardarAnimal(@RequestBody Animal animal) {
+    @PostMapping("/")
+    public ResponseEntity<Animal> addAnimal(@RequestBody Animal animal) {
         return  ResponseEntity.status(HttpStatus.OK).body(animalService.save(animal));
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<Animal> actualizarAnimal(@RequestBody Animal animal) {
+    @PutMapping("/")
+    public ResponseEntity<Animal> updateAnimal(@RequestBody Animal animal) {
         return  ResponseEntity.status(HttpStatus.OK).body(animalService.update(animal));
     }
 
-    @PostMapping("/delete")
-    public ResponseEntity<Boolean> eliminarAnimal(@RequestBody Animal animal) {
-        return  ResponseEntity.status(HttpStatus.OK).body(animalService.deleteById(animal.getId()));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> deleteAnimal(@PathVariable Long id) {
+        return  ResponseEntity.status(HttpStatus.OK).body(animalService.deleteById(id));
     }
 }
